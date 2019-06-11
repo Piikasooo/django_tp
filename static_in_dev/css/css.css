@@ -1,0 +1,9 @@
+.pet {
+    margin-top: 0.5%;
+    margin-bottom: 0.5%;
+}
+.btn-outline-info{
+    background-color: rgba(44, 44, 44, 0.76);
+    color: white;
+    border-color: white;
+}

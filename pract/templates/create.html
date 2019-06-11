@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block navbarb %}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-fixed-top">
+        <a class="navbar-brand" href="/">#МиНеБудемоРабами</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav" aria-controls="navbar"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="nav">
+
+        </div>
+    </nav>
+{% endblock navbarb %}
+{% block content %}
+    <div class="container bg-white">
+        <div class="row justify-content-center mt-2">
+            <h2>Створення петиції</h2>
+        </div>
+        <form class="mt-1 font-weight-bold" action="{% url "save_pet" %}" method="POST">
+            {% csrf_token %}
+            {{ form.title|as_crispy_field }}
+            {{ form.category|as_crispy_field }}
+            {{ form.info|as_crispy_field }}
+            <input type="submit" class="btn btn-outline-info w-25" value="Створити">
+            <button onclick="history.back()" class="btn btn-outline-info w-25">Назад</button>
+        </form>
+    </div>
+{% endblock content %}
+{% block footer %}
+{% endblock footer %}

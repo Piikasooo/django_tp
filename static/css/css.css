@@ -1,0 +1,21 @@
+.pet {
+    margin-top: 0.5%;
+    margin-bottom: 0.5%;
+    background-color: white;
+}
+.btn-outline-info{
+    background-color: rgba(44, 44, 44, 0.76);
+    color: white;
+    border-color: white;
+}
+nav > div > ul > li {
+    font-size: large;
+}
+.topnav input[type=text] {
+  float: right;
+  padding: 6px;
+  border: none;
+  margin-top: 8px;
+  margin-right: 16px;
+  font-size: 17px;
+}

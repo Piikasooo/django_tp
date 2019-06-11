@@ -1,0 +1,108 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+    <title>#МиНеБудемоРабами</title>
+    <link rel="stylesheet" href="{% static 'css/css.css' %}">
+</head>
+<body>
+{% block navbarb %}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-fixed-top">
+        <a class="navbar-brand" href="/">#МиНеБудемоРабами</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav" aria-controls="navbar"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="nav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item ml-1 mt-1">
+                    <a class="nav-link" href="/">Всі</a>
+                </li>
+                <li class="nav-item ml-1 mt-1">
+                    <a class="nav-link" href="{% url "pop" %}">Зібрані</a>
+                </li>
+                <li class="nav-item ml-1 mt-1">
+                    <a class="nav-link" href="{% url "notPop" %}">Незібрані</a>
+                </li>
+                <li class="nav-item dropdown ml-1 mt-1">
+                    <a class="nav-link dropdown-toggle" id="ndml" href="#" role="button" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">
+                        Категорії
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="ndml">
+                        {% for category in categories %}
+                            <a class="dropdown-item" href="{{ category.get_absolute_url }}">{{ category.name }}</a>
+                        {% endfor %}
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{{ random.get_absolute_url }}">Випадкова категорія</a>
+                    </div>
+                </li>
+                {% if request.user.is_authenticated %}
+                    <li class="nav-item ml-1 mt-1">
+                        <a class="nav-link" href="{% url "account" %}">Мій кабінет</a>
+                    </li>
+                    <li class="nav-item ml-1 mt-1">
+                        <a class="nav-link" href="{% url "logout" %}">Вихід</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item ml-1 mt-1">
+                        <a class="nav-link" href="{% url "login" %}">Вхід</a>
+                    </li>
+                    <li class="nav-item ml-1 mt-1">
+                        <a class="nav-link" href="{% url "registration" %}">Реєстрація</a>
+                    </li>
+                {% endif %}
+            </ul>
+            <form class="form-inline ml-1 float-right justify-content-end" action="{% url "search" %}" method="GET">
+                <input name="q" type="text" class="form-control ml-1 mt-1" placeholder="Автор" aria-label="Автор"
+                       aria-describedby="basic-addon1">
+                <input class="btn btn-outline-light ml-1 mt-1" type="submit" value="Пошук">
+            </form>
+        </div>
+    </nav>
+{% endblock navbarb %}
+{% block content %}
+    <div class="container-fluid bg-white">
+        <div class="container-fluid">
+            <div class="row">
+                {% for petition in petitions %}
+                    <div class="col-sm-6 mt-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">{{ petition.title }}</h4>
+                                <h6 class="card-subtitle text-left">{{ petition.category }}</h6>
+                                <h6 class="card-text card-text text-right">Голосів зібрано {{ petition.votes }}/200</h6>
+                                <div class="dropdown-divider"></div>
+                                <h6 class="card-subtitle text-right mt-1">@{{ petition.user }}</h6>
+                                <h6 class="card-subtitle text-right mt-1">Статус: {{ petition.status }}</h6>
+                                <a href="{{ petition.get_absolute_url }}" class="btn btn-outline-info mt-1">Детальніше/підписати</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+{% block footer %}
+    <footer>
+        <div class="footer-copyright text-center py-3">
+            <p>Кількість створених петицій: {{ kol_petition }}. Кількість зібраних голосів: {{ kol_votes }}.</p>
+        </div>
+    </footer>
+{% endblock footer %}
+</body>
+</html>

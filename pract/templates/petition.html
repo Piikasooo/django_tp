@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block navbarb %}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-fixed-top">
+        <a class="navbar-brand" href="/">#МиНеБудемоРабами</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav" aria-controls="navbar"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="nav">
+            {% if request.user.is_authenticated %}
+                <form class="font-weight-bold" action="{% url "save_vote" %}" method="POST">
+                    {% csrf_token %}
+                    <input style="display: none" name="q" value="{{ petition.title }}">
+                    <input type="submit" class="btn btn-outline-light" value="Підписати">
+                </form>
+            {% else %}
+                <small class="text-center text-white">Підписувати петиції можуть тільки авторизовані користувачі.
+                    <a class="btn-outline-info" href="{% url "login" %}">
+                        <ins>Увійдіть</ins>
+                    </a> або <a class="btn-outline-info" href="{% url "registration" %}">
+                        <ins>зареєструйтеся</ins>
+                    </a>
+                </small>
+            {% endif %}
+            <button onclick="history.back()" class="btn btn-outline-light ml-2">Назад</button>
+        </div>
+    </nav>
+{% endblock navbarb %}
+{% block content %}
+    <div class="container-fluid pet bg-white">
+        <blockquote class="blockquote text-center col-sm-10 m-auto">
+            <h1 class="mb-0">{{ petition.title }}</h1>
+            <h4>{{ petition.category }}</h4>
+            <p class="text-left">{{ petition.info }}</p>
+        </blockquote>
+    </div>
+{% endblock content %}
+{% block footer %}
+{% endblock footer %}

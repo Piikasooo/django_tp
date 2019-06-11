@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block navbarb %}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-fixed-top">
+        <a class="navbar-brand" href="/">#МиНеБудемоРабами</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav" aria-controls="navbar"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </nav>
+{% endblock navbarb %}
+{% block content %}
+    <div class="container bg-white mt-3">
+        <h3 class="text-center">Реєстрація нового користувача</h3>
+        <form action="" method="POST">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <input type="submit" class="btn btn-outline-info w-100" value="Зареєструватися">
+            <a href="/" class="btn btn-outline-info w-100">На головну</a>
+        </form>
+    </div>
+{% endblock content %}
+{% block footer %}
+{% endblock footer %}

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="col-sm-12 bg-white">
+        <h2 class="m-3">Категорія: {{ category.name }}</h2>
+        <hr>
+        <div class="container-fluid pet">
+            <div class="row">
+                {% for petition in petitions_of_category %}
+                    <div class="col-sm-6 pet mt-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">{{ petition.title }}</h4>
+                                <h6 class="card-subtitle text-left">{{ petition.category }}</h6>
+                                <h6 class="card-text card-text text-right">Голосів зібрано {{ petition.votes }}/200</h6>
+                                <div class="dropdown-divider"></div>
+                                <h6 class="card-subtitle text-right mt-1">@{{ petition.user }}</h6>
+                                <a href="{{ petition.get_absolute_url }}" class="btn btn-outline-info mt-1">Детальніше/підписати</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+{% block footer %}
+{% endblock footer %}

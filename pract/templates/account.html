@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block navbarb %}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-fixed-top">
+        <a class="navbar-brand" href="/">#МиНеБудемоРабами</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav" aria-controls="navbar"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="nav">
+            <a class="btn btn-outline-light mr-1" href="{% url "create_petition" %}">Створити петицію</a>
+            <a class="btn btn-outline-light" href="/">На головну</a>
+        </div>
+    </nav>
+{% endblock navbarb %}
+{% block content %}
+    <div class="container bg-white mt-3">
+        <h3 class="text-center">Особистий кабінет користувача {{ request.user }}</h3>
+        <h4 class="text-center">Створені петиції</h4>
+        <table class="table table-responsive-sm text-center mt-3">
+            <tr>
+                <td>Номер петиції</td>
+                <td>Назва</td>
+                <td>Категорія</td>
+                <td>Дата закінчення збору голосів</td>
+                <td>Кількість голосів</td>
+                <td>Ссилка</td>
+            </tr>
+            {% for item in petition %}
+                <tr>
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.title }}</td>
+                    <td>{{ item.category }}</td>
+                    <td>{{ item.date }}</td>
+                    <td>{{ item.votes }}</td>
+                    <td><a class="btn btn-outline-info" href="{{ item.get_absolute_url }}">Петиція</a></td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock content %}
+{% block footer %}
+{% endblock footer %}
